@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO优化 -->
+    <title>羽生結弦 Yuzuru Hanyu - 花样滑冰传奇粉丝展示页</title>
+    <meta name="description" content="羽生结弦（はにゅう ゆづる）粉丝展示页。两届奥运冠军、19次打破世界纪录，花样滑冰史上最伟大的选手之一。包含经典节目视频、辉煌成就记录、职业生涯数据。">
+    <meta name="keywords" content="羽生结弦,Yuzuru Hanyu,花样滑冰,冬奥会,阴阳师,SEIMEI,罗密欧与朱丽叶,花滑,奥运冠军,世界纪录">
+
+    <!-- Open Graph 标签（社交分享） -->
+    <meta property="og:title" content="羽生結弦 Yuzuru Hanyu - 花样滑冰传奇">
+    <meta property="og:description" content="两届奥运冠军、19次打破世界纪录，花样滑冰史上最伟大的选手之一">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yuzuru-hanyu.vercel.app">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-glow: #00f7ff;
+            --secondary-glow: #7b2dff;
+            --ice-blue: #64c8ff;
+            --bg-dark: #0a0e27;
+            --card-bg: rgba(15, 25, 50, 0.6);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-dark);
+            min-height: 100vh;
+            color: #e8f4f8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景特效 */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 247, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 247, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* 动态光晕背景 */
+        .bg-glows {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .glow-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow), transparent);
+            top: -200px;
+            left: -200px;
+        }
+
+        .glow-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--secondary-glow), transparent);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -10s;
+        }
+
+        .glow-orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--ice-blue), transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* 雪花飘落效果 */
+        .snowflake {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(200, 240, 255, 0.8), 0 0 20px rgba(0, 247, 255, 0.6);
+            animation: snowfall linear infinite;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) translateX(0);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* 英雄区域 - 3D酷炫照片设计 */
+        .hero-section {
+            min-height: 75vh;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            position: relative;
+            overflow: hidden;
+            perspective: 2000px;
+        }
+
+        /* 左侧照片区域容器 */
+        .hero-photo-side {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            background: radial-gradient(ellipse at center, rgba(0, 247, 255, 0.05) 0%, transparent 70%);
+            overflow: hidden;
+        }
+
+        /* 3D照片包装器 */
+        .photo-3d-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 3/4;
+            transform-style: preserve-3d;
+            transform: rotateY(-12deg) rotateX(8deg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* 浮动动画 */
+        @keyframes float {
+            0%, 100% {
+                transform: rotateY(-12deg) rotateX(8deg) translateY(0px);
+            }
+            50% {
+                transform: rotateY(-8deg) rotateX(5deg) translateY(-20px);
+            }
+        }
+
+        /* 悬停效果 */
+        .hero-photo-side:hover .photo-3d-wrapper {
+            animation-play-state: paused;
+            transform: rotateY(-5deg) rotateX(3deg) scale(1.05);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* 照片卡片 */
+        .photo-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            transform-style: preserve-3d;
+        }
+
+        /* 主照片层 */
+        .photo-card.main {
+            background-image: url('images/yuzuru-cool.jpg');
+            background-size: cover;
+            background-position: center 20%;
+            z-index: 3;
+            border: 2px solid rgba(0, 247, 255, 0.3);
+            box-shadow:
+                0 0 60px rgba(0, 247, 255, 0.4),
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                inset 0 0 60px rgba(0, 247, 255, 0.1);
+        }
+
+        /* 照片上的光效层 */
+        .photo-card.main::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(0, 247, 255, 0.1) 50%,
+                transparent 70%
+            );
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        /* 发光边框层1 */
+        .photo-card.glow-1 {
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            z-index: 2;
+            transform: translateZ(-20px) translateX(15px) translateY(15px);
+            opacity: 0.6;
+            filter: blur(30px);
+        }
+
+        /* 发光边框层2 */
+        .photo-card.glow-2 {
+            background: linear-gradient(135deg, var(--secondary-glow), var(--primary-glow));
+            z-index: 1;
+            transform: translateZ(-40px) translateX(30px) translateY(30px);
+            opacity: 0.3;
+            filter: blur(40px);
+        }
+
+        /* 悬停时光效增强 */
+        .hero-photo-side:hover .photo-card.glow-1 {
+            opacity: 0.8;
+            filter: blur(35px);
+        }
+
+        .hero-photo-side:hover .photo-card.glow-2 {
+            opacity: 0.5;
+            filter: blur(50px);
+        }
+
+        /* 装饰性粒子 */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow);
+            animation: particle-float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 60%; left: 10%; animation-delay: 2s; }
+        .particle:nth-child(3) { top: 80%; left: 20%; animation-delay: 4s; }
+        .particle:nth-child(4) { top: 30%; left: 25%; animation-delay: 6s; }
+
+        @keyframes particle-float {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        /* ========== 全息投影底座 ========== */
+
+        /* 全息投影容器 */
+        .hologram-base {
+            position: absolute;
+            bottom: -280px;
+            left: 50%;
+            transform: translateX(-50%) rotateX(70deg);
+            transform-style: preserve-3d;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* 主底座平台 */
+        .base-platform {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(0, 247, 255, 0.15) 0%,
+                rgba(0, 247, 255, 0.05) 40%,
+                transparent 70%
+            );
+            border: 2px solid rgba(0, 247, 255, 0.4);
+            box-shadow:
+                0 0 60px rgba(0, 247, 255, 0.6),
+                inset 0 0 60px rgba(0, 247, 255, 0.2);
+            animation: platform-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes platform-pulse {
+            0%, 100% {
+                opacity: 0.7;
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        /* 外层旋转光环1 */
+        .base-ring-1 {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: rgba(0, 247, 255, 0.6);
+            border-bottom-color: rgba(123, 45, 255, 0.6);
+            animation: ring-rotate 8s linear infinite;
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.4);
+        }
+
+        /* 外层旋转光环2 */
+        .base-ring-2 {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 460px;
+            height: 460px;
+            border-radius: 50%;
+            border: 2px dashed rgba(123, 45, 255, 0.5);
+            animation: ring-rotate-reverse 12s linear infinite;
+            box-shadow: 0 0 20px rgba(123, 45, 255, 0.3);
+        }
+
+        /* 内层旋转光环3 */
+        .base-ring-3 {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            border: 2px dotted rgba(0, 247, 255, 0.7);
+            animation: ring-rotate 6s linear infinite;
+        }
+
+        @keyframes ring-rotate {
+            0% {
+                transform: translateX(-50%) rotateZ(0deg);
+            }
+            100% {
+                transform: translateX(-50%) rotateZ(360deg);
+            }
+        }
+
+        @keyframes ring-rotate-reverse {
+            0% {
+                transform: translateX(-50%) rotateZ(360deg);
+            }
+            100% {
+                transform: translateX(-50%) rotateZ(0deg);
+            }
+        }
+
+        /* 全息光束 */
+        .holo-beam {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(
+                to top,
+                rgba(0, 247, 255, 0.2) 0%,
+                rgba(0, 247, 255, 0.05) 50%,
+                transparent 100%
+            );
+            clip-path: polygon(
+                30% 100%,
+                70% 100%,
+                90% 0%,
+                10% 0%
+            );
+            animation: beam-pulse 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes beam-pulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* 扫描光效 */
+        .scan-line {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 380px;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                var(--primary-glow) 50%,
+                transparent 100%
+            );
+            box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
+            animation: scan-move 3s ease-in-out infinite;
+            border-radius: 50%;
+        }
+
+        @keyframes scan-move {
+            0%, 100% {
+                bottom: 30px;
+                opacity: 0.3;
+            }
+            50% {
+                bottom: 180px;
+                opacity: 1;
+            }
+        }
+
+        /* 全息数据粒子 */
+        .holo-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-glow);
+            animation: holo-particle-rise 4s ease-in-out infinite;
+        }
+
+        .holo-particle:nth-child(1) { left: 20%; animation-delay: 0s; }
+        .holo-particle:nth-child(2) { left: 40%; animation-delay: 1s; }
+        .holo-particle:nth-child(3) { left: 60%; animation-delay: 2s; }
+        .holo-particle:nth-child(4) { left: 80%; animation-delay: 3s; }
+
+        @keyframes holo-particle-rise {
+            0% {
+                bottom: 30px;
+                opacity: 0;
+                transform: scale(0);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                bottom: 250px;
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        /* 数据环装饰 */
+        .data-ring {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            animation: data-ring-pulse 2s ease-in-out infinite;
+        }
+
+        .data-ring::before,
+        .data-ring::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 247, 255, 0.2);
+        }
+
+        .data-ring::before {
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            animation: data-ring-pulse 2s ease-in-out infinite 0.5s;
+        }
+
+        .data-ring::after {
+            top: -30px;
+            left: -30px;
+            right: -30px;
+            bottom: -30px;
+            animation: data-ring-pulse 2s ease-in-out infinite 1s;
+        }
+
+        @keyframes data-ring-pulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+
+        /* 悬停时底座效果增强 */
+        .hero-photo-side:hover .base-platform {
+            box-shadow:
+                0 0 100px rgba(0, 247, 255, 0.8),
+                inset 0 0 80px rgba(0, 247, 255, 0.3);
+        }
+
+        .hero-photo-side:hover .holo-beam {
+            opacity: 1;
+        }
+
+        .hero-photo-side:hover .scan-line {
+            box-shadow:
+                0 0 30px var(--primary-glow),
+                0 0 60px var(--primary-glow);
+        }
+
+        /* 右侧内容区域 */
+        .hero-content-side {
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            padding: 80px 60px;
+            position: relative;
+        }
+
+        /* 装饰性斜线条 */
+        .hero-content-side::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            width: 1px;
+            height: 80%;
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                var(--primary-glow) 50%,
+                transparent 100%
+            );
+            opacity: 0.5;
+        }
+
+        .hero-info {
+            max-width: 650px;
+            text-align: left;
+        }
+
+        .hero-info h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .hero-info .subtitle {
+            font-size: 18px;
+            color: var(--primary-glow);
+            margin-bottom: 30px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .hero-info .bio {
+            font-size: 17px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 35px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            flex: 1;
+            padding: 20px;
+            background: rgba(0, 247, 255, 0.05);
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-glow);
+            box-shadow:
+                0 15px 50px rgba(0, 247, 255, 0.4),
+                0 0 30px rgba(0, 247, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-glow), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(0, 247, 255, 0.6);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tech-tag {
+            padding: 10px 20px;
+            background: rgba(0, 247, 255, 0.1);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            border-radius: 25px;
+            font-size: 14px;
+            color: var(--primary-glow);
+            transition: all 0.3s;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* 时间轴区域 */
+        .timeline-section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 56px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(0, 247, 255, 0.5);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: rgba(0, 247, 255, 0.6);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+
+        /* ========== 3D Cover Flow旋转墙 ========== */
+
+        .timeline-section {
+            padding: 100px 0;
+            position: relative;
+            perspective: 2000px;
+            overflow: hidden;
+        }
+
+        /* Cover Flow容器 */
+        .coverflow-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 650px;
+            perspective: 2000px;
+        }
+
+        /* Cover Flow轨道 */
+        .coverflow-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Cover Flow卡片 */
+        .coverflow-card {
+            position: absolute;
+            width: 400px;
+            height: 520px;
+            left: 50%;
+            top: 50%;
+            margin-left: -200px;
+            margin-top: -260px;
+            background: rgba(15, 25, 50, 0.85);
+            border: 2px solid rgba(0, 247, 255, 0.4);
+            border-radius: 30px;
+            padding: 35px;
+            backdrop-filter: blur(40px);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.7),
+                0 0 100px rgba(0, 247, 255, 0.3),
+                inset 0 0 60px rgba(0, 247, 255, 0.1);
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        /* 发光边框动画 */
+        .coverflow-card::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 33px;
+            padding: 3px;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(0, 247, 255, 0.5) 50%,
+                transparent 70%
+            );
+            background-size: 200% 200%;
+            animation: borderFlow 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .coverflow-card.active::before {
+            opacity: 1;
+        }
+
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* 卡片头部 */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card-year-badge {
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 18px;
+            white-space: nowrap;
+            box-shadow: 0 0 35px rgba(0, 247, 255, 0.6);
+            flex-shrink: 0;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 247, 255, 0.2);
+            border: 2px solid rgba(0, 247, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            flex-shrink: 0;
+            box-shadow: 0 0 25px rgba(0, 247, 255, 0.4);
+        }
+
+        .card-title-preview {
+            flex: 1;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* 数据统计 */
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.5s;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .coverflow-card.active .card-stats {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 200px;
+            transition-delay: 0.3s;
+        }
+
+        .stat-item {
+            background: rgba(0, 247, 255, 0.12);
+            border: 1px solid rgba(0, 247, 255, 0.35);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            background: rgba(0, 247, 255, 0.22);
+            transform: translateY(-3px);
+            border-color: rgba(0, 247, 255, 0.6);
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-glow), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(0, 247, 255, 0.75);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 内容描述 */
+        .card-description {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .coverflow-card.active .card-description {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 350px;
+            transition-delay: 0.5s;
+        }
+
+        .card-description h3 {
+            font-size: 26px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-description p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+        }
+
+        /* 导航按钮 */
+        .coverflow-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 247, 255, 0.15);
+            border: 2px solid rgba(0, 247, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            z-index: 100;
+            font-size: 28px;
+            color: var(--primary-glow);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+        }
+
+        .coverflow-nav:hover {
+            background: rgba(0, 247, 255, 0.3);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 50px rgba(0, 247, 255, 0.6);
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .coverflow-nav.prev {
+            left: 5%;
+        }
+
+        .coverflow-nav.next {
+            right: 5%;
+        }
+
+        /* 指示器 */
+        .coverflow-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 247, 255, 0.3);
+            border: 2px solid rgba(0, 247, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .indicator.active {
+            background: var(--primary-glow);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.8);
+            transform: scale(1.3);
+        }
+
+        .indicator:hover {
+            transform: scale(1.2);
+        }
+        /* ========== 3D倾斜视频卡片 ========== */
+
+        .video-section {
+            padding: 100px 0;
+            position: relative;
+            perspective: 2000px;
+        }
+
+        /* 强制4列布局 - 大屏幕 */
+        @media (min-width: 1200px) {
+            .video-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+        }
+
+        /* 中等屏幕2列 */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        /* 小屏幕1列 */
+        @media (max-width: 767px) {
+            .video-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px 30px;
+            margin-top: 40px;
+        }
+
+        .video-card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+        }
+
+        /* 视频卡片包装器 - 实现3D倾斜 */
+        .video-card-wrapper {
+            background: rgba(15, 25, 50, 0.5);
+            border: 2px solid rgba(0, 247, 255, 0.3);
+            border-radius: 30px;
+            overflow: hidden;
+            backdrop-filter: blur(30px);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 80px rgba(0, 247, 255, 0.2),
+                inset 0 0 40px rgba(0, 247, 255, 0.05);
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            /* 默认3D倾斜 */
+            transform: rotateY(-8deg) rotateX(5deg);
+        }
+
+        /* 不同视频卡片不同倾斜角度 - 4个视频 */
+        .video-card:nth-child(1) .video-card-wrapper {
+            transform: rotateY(-8deg) rotateX(5deg);
+        }
+
+        .video-card:nth-child(2) .video-card-wrapper {
+            transform: rotateY(8deg) rotateX(-3deg);
+        }
+
+        .video-card:nth-child(3) .video-card-wrapper {
+            transform: rotateY(-6deg) rotateX(4deg);
+        }
+
+        .video-card:nth-child(4) .video-card-wrapper {
+            transform: rotateY(7deg) rotateX(-4deg);
+        }
+
+        /* 悬停效果 - 调整角度并放大 */
+        .video-card:hover .video-card-wrapper {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.08);
+            border-color: rgba(0, 247, 255, 0.6);
+            box-shadow:
+                0 40px 100px rgba(0, 0, 0, 0.7),
+                0 0 150px rgba(0, 247, 255, 0.4),
+                inset 0 0 60px rgba(0, 247, 255, 0.1);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(123, 45, 255, 0.1));
+            transform: translateZ(20px);
+            overflow: hidden;
+            border-radius: 28px 28px 0 0;
+        }
+
+        .video-thumbnail iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .video-card:hover .video-cover {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        /* 播放覆盖层 */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            pointer-events: none;
+            transform: translateZ(30px);
+        }
+
+        .video-card:hover .play-overlay {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* 播放按钮 - 超大发光效果 */
+        .play-button {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--bg-dark);
+            box-shadow:
+                0 0 60px rgba(0, 247, 255, 0.8),
+                0 0 120px rgba(0, 247, 255, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            animation: play-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes play-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 60px rgba(0, 247, 255, 0.8),
+                    0 0 120px rgba(0, 247, 255, 0.4);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow:
+                    0 0 80px rgba(0, 247, 255, 1),
+                    0 0 160px rgba(0, 247, 255, 0.6);
+            }
+        }
+
+        .video-card:hover .play-button {
+            transform: scale(1.2);
+            animation-play-state: paused;
+        }
+
+        .video-info {
+            padding: 18px 15px;
+        }
+
+        .video-info h3 {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .video-info p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .video-stat {
+            font-size: 11px;
+            color: rgba(0, 247, 255, 0.8);
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cyber-btn {
+            padding: 10px 20px;
+            background: rgba(0, 247, 255, 0.1);
+            border: 1px solid rgba(0, 247, 255, 0.4);
+            border-radius: 20px;
+            color: var(--primary-glow);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .cyber-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.4);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(0, 247, 255, 0.1);
+            margin-top: 50px;
+        }
+
+        footer p {
+            color: rgba(0, 247, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 968px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .hero-photo-side {
+                min-height: 60vh;
+                order: 2;
+                padding: 40px;
+            }
+
+            .photo-3d-wrapper {
+                max-width: 350px;
+                transform: rotateY(-8deg) rotateX(5deg);
+            }
+
+            @keyframes float {
+                0%, 100% {
+                    transform: rotateY(-8deg) rotateX(5deg) translateY(0px);
+                }
+                50% {
+                    transform: rotateY(-5deg) rotateX(3deg) translateY(-15px);
+                }
+            }
+
+            .hero-content-side {
+                order: 1;
+                padding: 60px 40px;
+            }
+
+            .hero-info {
+                text-align: center;
+            }
+
+            .hero-info .bio {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .stats-row {
+                justify-content: center;
+            }
+
+            .tags-container {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content-side {
+                padding: 50px 30px;
+            }
+
+            .hero-photo-side {
+                min-height: 50vh;
+                padding: 30px;
+            }
+
+            .photo-3d-wrapper {
+                max-width: 280px;
+            }
+
+            .particle {
+                display: none;
+            }
+
+            /* 移动端简化全息底座 */
+            .hologram-base {
+                bottom: -200px;
+                transform: translateX(-50%) rotateX(70deg) scale(0.6);
+            }
+
+            .base-platform {
+                width: 280px;
+                height: 280px;
+            }
+
+            .base-ring-1 {
+                width: 310px;
+                height: 310px;
+            }
+
+            .base-ring-2 {
+                width: 340px;
+                height: 340px;
+            }
+
+            .base-ring-3 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .holo-particle {
+                display: none;
+            }
+
+            .hero-info h1 {
+                font-size: 40px;
+                letter-spacing: 1px;
+            }
+
+            .hero-info .subtitle {
+                font-size: 16px;
+                letter-spacing: 4px;
+            }
+
+            .hero-info .bio {
+                font-size: 15px;
+            }
+
+            .stats-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .section-header h2 {
+                font-size: 36px;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+
+            .timeline-year {
+                position: static;
+                margin-bottom: 15px;
+                display: inline-block;
+            }
+
+            .timeline-content {
+                margin-left: 0;
+            }
+        }
+    
+        /* ========== 实用功能增强 ========== */
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 247, 255, 0.15);
+            border: 2px solid rgba(0, 247, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+            font-size: 28px;
+            color: var(--primary-glow);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: rgba(0, 247, 255, 0.3);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 50px rgba(0, 247, 255, 0.6);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* 社交分享按钮 */
+        .share-buttons {
+            position: fixed;
+            bottom: 120px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 999;
+        }
+
+        .share-buttons.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 247, 255, 0.15);
+            border: 2px solid rgba(0, 247, 255, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
+            font-size: 20px;
+            color: var(--primary-glow);
+            position: relative;
+        }
+
+        .share-btn:hover {
+            background: rgba(0, 247, 255, 0.3);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 40px rgba(0, 247, 255, 0.5);
+            transform: scale(1.15);
+        }
+
+        .share-btn .tooltip {
+            position: absolute;
+            right: 60px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .share-btn:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 65px;
+        }
+
+        /* 阅读进度条 */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.8);
+            z-index: 1001;
+            transition: width 0.1s linear;
+        }
+
+        /* 页面加载动画 */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-snowflake {
+            font-size: 80px;
+            animation: loader-spin 2s linear infinite;
+            text-shadow: 0 0 60px rgba(0, 247, 255, 1);
+            margin-bottom: 30px;
+        }
+
+        @keyframes loader-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 18px;
+            color: var(--primary-glow);
+            letter-spacing: 8px;
+            animation: loader-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loader-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .share-buttons {
+                bottom: 90px;
+                right: 30px;
+            }
+
+            .share-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 页面加载动画 -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-snowflake">❄️</div>
+            <div class="loader-text">LOADING</div>
+        </div>
+    </div>
+
+    <!-- 阅读进度条 -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- 背景特效 -->
+    <div class="bg-grid"></div>
+    <div class="bg-glows">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
+    </div>
+
+    <!-- 雪花容器 -->
+    <div id="snowflakes"></div>
+
+    <div class="container">
+        <!-- 英雄区域 -->
+        <section class="hero-section">
+            <!-- 左侧照片区域 -->
+            <div class="hero-photo-side">
+                <!-- 装饰性粒子 -->
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+
+                <!-- 3D照片包装器 -->
+                <div class="photo-3d-wrapper">
+                    <!-- 发光层2（最底层） -->
+                    <div class="photo-card glow-2"></div>
+                    <!-- 发光层1（中间层） -->
+                    <div class="photo-card glow-1"></div>
+                    <!-- 主照片（最上层） -->
+                    <div class="photo-card main"></div>
+                </div>
+
+                <!-- 全息投影底座 -->
+                <div class="hologram-base">
+                    <!-- 主底座平台 -->
+                    <div class="base-platform"></div>
+
+                    <!-- 旋转光环 -->
+                    <div class="base-ring-1"></div>
+                    <div class="base-ring-2"></div>
+                    <div class="base-ring-3"></div>
+
+                    <!-- 全息光束 -->
+                    <div class="holo-beam"></div>
+
+                    <!-- 扫描光效 -->
+                    <div class="scan-line"></div>
+
+                    <!-- 数据环装饰 -->
+                    <div class="data-ring"></div>
+
+                    <!-- 全息数据粒子 -->
+                    <div class="holo-particle"></div>
+                    <div class="holo-particle"></div>
+                    <div class="holo-particle"></div>
+                    <div class="holo-particle"></div>
+                </div>
+            </div>
+
+            <!-- 右侧内容区域 -->
+            <div class="hero-content-side">
+                <div class="hero-info">
+                    <h1>羽生結弦<br>（はにゅう ゆづる）<br>Yuzuru Hanyu</h1>
+                    <p class="subtitle">花样滑冰 · 冰之传奇</p>
+                    <p class="bio">
+                        羽生结弦（はにゅう ゆづる），日本花样滑冰男子单人滑运动员，1994年12月7日出生于宫城县仙台市。
+                        他是两届冬奥会冠军（2014索契、2018平昌）、两届世锦赛冠军，职业生涯19次打破世界纪录，
+                        被誉为花样滑冰历史上最伟大的选手之一。
+                    </p>
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">届奥运冠军</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">届世锦赛冠军</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">19</div>
+                            <div class="stat-label">次破世界纪录</div>
+                        </div>
+                    </div>
+                    <div class="tags-container">
+                        <span class="tech-tag">🥇 两届奥运冠军</span>
+                        <span class="tech-tag">🏆 世锦赛金牌得主</span>
+                        <span class="tech-tag">⛸️ 花样滑冰传奇</span>
+                        <span class="tech-tag">💫 19次世界纪录</span>
+                        <span class="tech-tag">🇯🇵 日本滑冰英雄</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 时间轴区域 -->
+        <section class="timeline-section">
+            <div class="section-header">
+                <h2>荣耀时刻</h2>
+                <p>Journey of Excellence</p>
+            </div>
+
+                                    <div class="coverflow-container">
+                <!-- 导航按钮 -->
+                <div class="coverflow-nav prev" onclick="moveCoverFlow(-1)">❮</div>
+                <div class="coverflow-nav next" onclick="moveCoverFlow(1)">❯</div>
+
+                <!-- Cover Flow轨道 -->
+                <div class="coverflow-track" id="coverflowTrack">
+                    <!-- 卡片1: 2022 -->
+                    <div class="coverflow-card" data-index="0">
+                        <div class="card-header">
+                            <div class="card-year-badge">2022</div>
+                            <div class="card-icon">💫</div>
+                            <div class="card-title-preview">挑战人类极限4A</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">4A</div>
+                                <div class="stat-label">阿克塞尔四周半</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">铜牌</div>
+                                <div class="stat-label">冬奥会名次</div>
+                            </div>
+                        </div>
+                        <div class="card-description">
+                            <h3>💫 挑战人类极限4A</h3>
+                            <p>
+                                北京冬奥会自由滑，羽生结弦在《天与地》节目中挑战人类从未完成过的阿克塞尔四周半跳（4A）。
+                                虽未完美落地，但这种挑战极限的精神感动了全球观众。赛后宣布退役，结束竞技生涯。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 卡片2: 2018 -->
+                    <div class="coverflow-card" data-index="1">
+                        <div class="card-header">
+                            <div class="card-year-badge">2018</div>
+                            <div class="card-icon">🥇</div>
+                            <div class="card-title-preview">卫冕奥运金牌</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">金</div>
+                                <div class="stat-label">平昌冬奥会</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">111.82</div>
+                                <div class="stat-label">短节目世界纪录</div>
+                            </div>
+                        </div>
+                        <div class="card-description">
+                            <h3>🥇 卫冕奥运金牌</h3>
+                            <p>
+                                24岁的羽生结弦在平昌冬奥会成功卫冕，成为66年来首位蝉联男单金牌的选手。
+                                短节目破世界纪录（111.82分），自由滑《阴阳师》完美演绎，总分297.77分夺冠。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 卡片3: 2014-2017 -->
+                    <div class="coverflow-card" data-index="2">
+                        <div class="card-header">
+                            <div class="card-year-badge">2014-2017</div>
+                            <div class="card-icon">⭐</div>
+                            <div class="card-title-preview">巅峰统治期</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">2x</div>
+                                <div class="stat-label">世锦赛冠军</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">4x</div>
+                                <div class="stat-label">大奖赛总决赛</div>
+                            </div>
+                        </div>
+                        <div class="card-description">
+                            <h3>⭐ 巅峰统治期</h3>
+                            <p>
+                                2014和2017两届世锦赛冠军，2013-2016大奖赛总决赛四连冠。
+                                2015年以总分322.40分破世界纪录，成为首位总分超300分的选手，展现了绝对统治力。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 卡片4: 2014 -->
+                    <div class="coverflow-card" data-index="3">
+                        <div class="card-header">
+                            <div class="card-year-badge">2014</div>
+                            <div class="card-icon">🏆</div>
+                            <div class="card-title-preview">19岁首夺奥运金牌</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">19岁</div>
+                                <div class="stat-label">首次参赛</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">101.45</div>
+                                <div class="stat-label">短节目纪录</div>
+                            </div>
+                        </div>
+                        <div class="card-description">
+                            <h3>🥇 19岁首夺奥运金牌</h3>
+                            <p>
+                                首次参加冬奥会即夺得金牌，19岁的羽生结弦用《罗密欧与朱丽叶》感动了全世界。
+                                短节目《巴黎散步道》破世界纪录（101.45分），成为首位短节目超100分的选手。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 卡片5: 总计 -->
+                    <div class="coverflow-card" data-index="4">
+                        <div class="card-header">
+                            <div class="card-year-badge">总计</div>
+                            <div class="card-icon">🌟</div>
+                            <div class="card-title-preview">19次打破世界纪录</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">19次</div>
+                                <div class="stat-label">世界纪录</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">首位</div>
+                                <div class="stat-label">超300分</div>
+                            </div>
+                        </div>
+                        <div class="card-description">
+                            <h3>🌟 19次打破世界纪录</h3>
+                            <p>
+                                羽生结弦职业生涯共19次打破世界纪录，是ISU评分系统（2003年）以来破纪录最多的单人滑选手。
+                                其中包括首位短节目超100分、首位自由滑超200分、首位总分超300分的选手。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 指示器 -->
+                <div class="coverflow-indicators" id="coverflowIndicators"></div>
+            </div>
+        </section>
+
+        <!-- 视频区域 -->
+        <section class="video-section">
+            <div class="section-header">
+                <h2>冰上高光</h2>
+                <p>Unforgettable Moments</p>
+            </div>
+
+            <div class="video-grid">
+                <!-- 视频1 -->
+                <div class="video-card" onclick="window.open('https://www.bilibili.com/video/BV17F41177Nv/', '_blank')">
+                    <div class="video-card-wrapper">
+                        <div class="video-thumbnail">
+                            <img src="http://i1.hdslb.com/bfs/archive/3560ed7c7ecdb852bba42b4683f04421e81def1a.jpg" alt="天与地自由滑 - 挑战4A" class="video-cover" loading="lazy" />
+                            <div class="play-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>天与地自由滑 - 挑战4A</h3>
+                            <p>北京冬奥会自由滑，挑战人类极限4A跳，虽败犹荣的完美演绎</p>
+                            <div class="video-stats">
+                                <div class="video-stat">❤️ 32k</div>
+                                <div class="video-stat">👁️ 356k</div>
+                                <div class="video-stat">⏱️ 6:12</div>
+                            </div>
+                            <div class="video-actions">
+                                <button class="cyber-btn" onclick="event.stopPropagation(); window.open('https://www.bilibili.com/video/BV17F41177Nv/', '_blank')">
+                                    ↗️ 观看
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 视频2 -->
+                <div class="video-card" onclick="window.open('https://www.bilibili.com/video/BV1jb411H7SS', '_blank')">
+                    <div class="video-card-wrapper">
+                        <div class="video-thumbnail">
+                            <img src="http://i0.hdslb.com/bfs/archive/a4aaaa39b15277a93c0e8697bd2cfaff1f87c331.jpg" alt="阴阳师自由滑 - 卫冕金牌" class="video-cover" loading="lazy" />
+                            <div class="play-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>阴阳师自由滑 - 卫冕金牌</h3>
+                            <p>2018平昌冬奥会，完美演绎《阴阳师》，成功卫冕奥运金牌</p>
+                            <div class="video-stats">
+                                <div class="video-stat">❤️ 1.2M</div>
+                                <div class="video-stat">👁️ 29M</div>
+                                <div class="video-stat">⏱️ 7:08</div>
+                            </div>
+                            <div class="video-actions">
+                                <button class="cyber-btn" onclick="event.stopPropagation(); window.open('https://www.bilibili.com/video/BV1jb411H7SS/', '_blank')">
+                                    ↗️ 观看
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 视频3 -->
+                <div class="video-card" onclick="window.open('https://www.bilibili.com/video/BV1NY4y1a7Mh/', '_blank')">
+                    <div class="video-card-wrapper">
+                        <div class="video-thumbnail">
+                            <img src="http://i0.hdslb.com/bfs/archive/7654df67a1ec46dc36b27b7f57fa2668065ce337.jpg" alt="阴阳师短节目 - 世界纪录" class="video-cover" loading="lazy" />
+                            <div class="play-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>阴阳师短节目 - 世界纪录</h3>
+                            <p>短节目破世界纪录111.82分，为自由滑夺金奠定基础</p>
+                            <div class="video-stats">
+                                <div class="video-stat">❤️ 800k</div>
+                                <div class="video-stat">👁️ 15M</div>
+                                <div class="video-stat">⏱️ 2:58</div>
+                            </div>
+                            <div class="video-actions">
+                                <button class="cyber-btn" onclick="event.stopPropagation(); window.open('https://www.bilibili.com/video/BV1NY4y1a7Mh/', '_blank')">
+                                    ↗️ 观看
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 视频4 -->
+                <div class="video-card" onclick="window.open('https://www.bilibili.com/video/BV1tx411A7qU/', '_blank')">
+                    <div class="video-card-wrapper">
+                        <div class="video-thumbnail">
+                            <img src="http://i1.hdslb.com/bfs/archive/3fdfc74b01b64d25075ff80ebd2ca330b834542b.jpg" alt="罗密欧与朱丽叶 - 首夺金牌" class="video-cover" loading="lazy" />
+                            <div class="play-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>罗密欧与朱丽叶 - 首夺金牌</h3>
+                            <p>19岁首夺奥运金牌，被誉为"鲜衣怒马少年时"的经典表演</p>
+                            <div class="video-stats">
+                                <div class="video-stat">❤️ 150k</div>
+                                <div class="video-stat">👁️ 2M</div>
+                                <div class="video-stat">⏱️ 4:15</div>
+                            </div>
+                            <div class="video-actions">
+                                <button class="cyber-btn" onclick="event.stopPropagation(); window.open('https://www.bilibili.com/video/BV1tx411A7qU/', '_blank')">
+                                    ↗️ 观看
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </section>
+
+
+        <!-- 实用功能按钮 -->
+        <div class="back-to-top" id="backToTop" title="返回顶部">↑</div>
+
+        <div class="share-buttons" id="shareButtons">
+            <div class="share-btn" onclick="shareToWeibo()" title="分享到微博">
+                📱
+                <span class="tooltip">分享到微博</span>
+            </div>
+            <div class="share-btn" onclick="shareToTwitter()" title="分享到Twitter">
+                🐦
+                <span class="tooltip">分享到Twitter</span>
+            </div>
+            <div class="share-btn" onclick="copyLink()" title="复制链接">
+                🔗
+                <span class="tooltip">复制链接</span>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer>
+            <p>❄️ 羽生结弦粉丝展示页 · 用心打造 💙</p>
+            <p style="margin-top: 10px; font-size: 12px; opacity: 0.5;">© 2024 Ice Legend - All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+                        // ========== 3D Cover Flow交互 ==========
+
+        let currentIndex = 0;
+        const cards = document.querySelectorAll('.coverflow-card');
+        const totalCards = cards.length;
+
+        // 更新Cover Flow显示
+        function updateCoverFlow() {
+            cards.forEach((card, index) => {
+                const offset = index - currentIndex;
+                const absOffset = Math.abs(offset);
+
+                // 移除所有active类
+                card.classList.remove('active');
+
+                if (offset === 0) {
+                    // 中心卡片
+                    card.style.transform = 'translateX(0) translateZ(0) rotateY(0deg) scale(1)';
+                    card.style.opacity = '1';
+                    card.style.zIndex = '100';
+                    card.classList.add('active');
+                } else {
+                    // 两侧卡片
+                    const direction = offset > 0 ? 1 : -1;
+                    const translateX = direction * 450; // 水平偏移
+                    const translateZ = -300 - (absOffset * 100); // 深度
+                    const rotateY = direction * -45; // 旋转角度
+                    const scale = 1 - (absOffset * 0.15); // 缩放
+
+                    card.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+                    card.style.opacity = Math.max(0.3, 1 - absOffset * 0.3);
+                    card.style.zIndex = 100 - absOffset;
+                }
+            });
+
+            // 更新指示器
+            updateIndicators();
+        }
+
+        // 移动Cover Flow
+        function moveCoverFlow(direction) {
+            currentIndex += direction;
+
+            // 循环
+            if (currentIndex < 0) {
+                currentIndex = totalCards - 1;
+            } else if (currentIndex >= totalCards) {
+                currentIndex = 0;
+            }
+
+            updateCoverFlow();
+        }
+
+        // 点击卡片
+        function handleCardClick(index) {
+            if (index !== currentIndex) {
+                currentIndex = index;
+                updateCoverFlow();
+            }
+        }
+
+        // 更新指示器
+        function updateIndicators() {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((ind, index) => {
+                if (index === currentIndex) {
+                    ind.classList.add('active');
+                } else {
+                    ind.classList.remove('active');
+                }
+            });
+        }
+
+        // 创建指示器
+        function createIndicators() {
+            const container = document.getElementById('coverflowIndicators');
+            for (let i = 0; i < totalCards; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator';
+                if (i === currentIndex) {
+                    indicator.classList.add('active');
+                }
+                indicator.onclick = () => handleCardClick(i);
+                container.appendChild(indicator);
+            }
+        }
+
+        // 雪花生成函数
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeSymbols = ['❄', '❅', '❆', '✻', '✼', '❉'];
+
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                snowflake.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                snowflake.style.animationDelay = (Math.random() * 10) + 's';
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // 键盘控制
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                moveCoverFlow(-1);
+            } else if (e.key === 'ArrowRight') {
+                moveCoverFlow(1);
+            }
+        });
+
+        // 页面加载完成后初始化
+        window.addEventListener('load', () => {
+            createIndicators();
+            updateCoverFlow();
+            createSnowflakes();
+        });
+
+        // 为卡片添加点击事件
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => handleCardClick(index));
+        });
+
+
+        // ========== 实用功能增强 ==========
+
+        // 返回顶部功能
+        const backToTop = document.getElementById('backToTop');
+        const shareButtons = document.getElementById('shareButtons');
+
+        window.addEventListener('scroll', () => {
+            // 显示/隐藏返回顶部和分享按钮
+            if (window.pageYOffset > 500) {
+                backToTop.classList.add('visible');
+                shareButtons.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+                shareButtons.classList.remove('visible');
+            }
+
+            // 更新阅读进度
+            updateReadingProgress();
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 阅读进度条
+        function updateReadingProgress() {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.pageYOffset / windowHeight) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
+        }
+
+        // 社交分享功能
+        function shareToWeibo() {
+            const title = '羽生結弦 Yuzuru Hanyu - 花样滑冰传奇粉丝展示页';
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://service.weibo.com/share/share.php?title=${encodeURIComponent(title)}&url=${url}`, '_blank', 'width=600,height=500');
+        }
+
+        function shareToTwitter() {
+            const text = 'Yuzuru Hanyu - 花样滑冰传奇粉丝展示页';
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`, '_blank', 'width=600,height=500');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                // 显示复制成功提示
+                const tooltip = event.target.closest('.share-btn').querySelector('.tooltip');
+                const originalText = tooltip.textContent;
+                tooltip.textContent = '已复制！';
+                setTimeout(() => {
+                    tooltip.textContent = originalText;
+                }, 2000);
+            }).catch(() => {
+                alert('复制失败，请手动复制链接');
+            });
+        }
+
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('pageLoader').classList.add('hidden');
+            }, 800); // 稍微延迟一点，让用户看到加载动画
+        });
+
+    </script>
+</body>
+</html>
